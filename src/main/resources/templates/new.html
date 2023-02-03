@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/create(user=${user})}" th:object="${user}">
+  <label for="Firstname"> Enter Firstname:</label>
+  <input type="text" th:field="*{firstName}" id="Firstname"/>
+    <br><br>
+    <label for="Lastname"> Enter Lastname:</label>
+    <input type="text" th:field="*{lastName}" id="Lastname"/>
+    <br><br>
+    <label for="Email"> Enter Email:</label>
+    <input type="text" th:field="*{email}" id="Email"/>
+  <br><br>
+  <input type="submit" value="Create">
+</form>
+</body>
+</html>

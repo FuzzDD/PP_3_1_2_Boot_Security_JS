@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Users</title>
+</head>
+<body bgcolor="gray">
+<table th:border="2" bordercolor ="#fafafa" bgcolor="#faebd7">
+  <caption>All Users</caption>
+  <tr>
+    <th>id</th>
+    <th>Name</th>
+    <th>LastName</th>
+    <th>email</th>
+    <th>Deleting</th>
+    <th>Edit</th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td>
+      <a th:href="@{/edit/{id}(id=${user.getId()})}" th:text="${user.id}">id</a>
+    </td>
+    <td th:text="${user.getFirstName()}">name</td>
+    <td th:text="${user.getLastName()}">lastName</td>
+    <td th:text="${user.email}">email</td>
+    <td>
+      <form th:method="POST" th:action="@{/del(id=${user.getId()})}" th:object="${user}">
+        <input type="submit" value="DELETE"/>
+      </form>
+    </td>
+    <td>
+      <a th:href="@{/edit/{id}(id=${user.getId()})}">EDIT</a>
+    </td>
+  </tr>
+
+</table>
+<br/>
+<hr/>
+<hr/>
+<form th:method="GET" th:action="@{/addUser}">
+  <input type="submit" value="Create new user"/>
+</form>
+<form th:method="GET" th:action="@{/user}">
+  <input type="submit" value="Go to UserPage"/>
+</form>
+<button class="buttonLogout" onclick="window.location.href = '/logout';">Logout</button>
+</body>
+</html>

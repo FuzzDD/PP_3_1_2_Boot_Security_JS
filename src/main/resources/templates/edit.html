@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/edit/{id}(id=${user.id})}" th:odject="${user}">
+  <label for="Firstname"> Enter Firstname:</label>
+  <input type="text" th:field="*{user.firstName}" id="Firstname"/>
+  <br><br>
+  <label for="Lastname"> Enter Lastname:</label>
+  <input type="text" th:field="*{user.lastName}" id="Lastname"/>
+  <br><br>
+  <label for="Email"> Enter Email:</label>
+  <input type="text" th:field="*{user.email}" id="Email"/>
+
+  <input type="submit" value="EDIT">
+</form>
+</body>
+</html>
