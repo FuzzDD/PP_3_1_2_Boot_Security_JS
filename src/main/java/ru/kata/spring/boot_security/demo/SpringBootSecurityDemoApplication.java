@@ -12,9 +12,4 @@ public class SpringBootSecurityDemoApplication {
 		SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
 	}
 
-	/*@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-
-	}*/
 }
