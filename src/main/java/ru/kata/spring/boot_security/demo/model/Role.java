@@ -30,6 +30,10 @@ public class Role implements GrantedAuthority {
 
     }
 
+    public String getNameNotPrefix() {
+        return name.replace("ROLE_", "");
+    }
+
     public Long getId() {
         return id;
     }

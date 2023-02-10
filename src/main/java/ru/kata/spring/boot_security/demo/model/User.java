@@ -29,14 +29,18 @@ public class User implements UserDetails {
     @Column(name = "age")
     private String age;
 
-    @Column(name = "enabled")
-    private Boolean enabled;
-
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable (name="user_role",
             joinColumns=@JoinColumn (name="user_id"),
             inverseJoinColumns=@JoinColumn(name="role_id"))
     private Set<Role> roles;
+
+    public String roleToString() {
+        return roles.stream()
+                .map(Role::getNameNotPrefix)
+                .reduce((x, y) -> x + ", " + y)
+                .orElse("");
+    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -61,14 +65,6 @@ public class User implements UserDetails {
 
     public void setAge(String age) {
         this.age = age;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enable) {
-        this.enabled = enable;
     }
 
     public Long getId() {

@@ -1,10 +1,12 @@
 package ru.kata.spring.boot_security.demo.dao;
 
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -16,6 +18,12 @@ public class UserDaoImpl implements UserDao{
     @PersistenceContext
     private EntityManager entityManager;
 
+    //private PasswordEncoder passwordEncoder;
+
+    /*public UserDaoImpl(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }*/
+
     @Override
     public List<User> getUsersList() {
         TypedQuery<User> query = entityManager.createQuery("select u from User u", User.class);
@@ -26,11 +34,18 @@ public class UserDaoImpl implements UserDao{
         return entityManager.find(User.class, id);
     }
     @Override
-    public User findByName(String firstname) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.firstName = :firstname", User.class).setParameter("firstname", firstname).getSingleResult();
+    public User findByName(String email) {
+        User user = null;
+        try {
+            user= (User)entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email).getSingleResult();
+        } catch (NoResultException e) {
+        }
+        return user;
     }
     @Override
     public void add(User user) {
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
@@ -40,6 +55,10 @@ public class UserDaoImpl implements UserDao{
         userToUpdate.setFirstName(updatetUser.getFirstName());
         userToUpdate.setLastName(updatetUser.getLastName());
         userToUpdate.setEmail(updatetUser.getEmail());
+        userToUpdate.setAge(updatetUser.getAge());
+        //userToUpdate.setPassword(passwordEncoder.encode(updatetUser.getPassword()));
+        userToUpdate.setPassword(updatetUser.getPassword());
+        userToUpdate.setRoles(updatetUser.getRoles());
     }
     @Override
     public void delete(Long id) {

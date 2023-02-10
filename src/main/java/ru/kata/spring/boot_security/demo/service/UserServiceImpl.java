@@ -2,9 +2,9 @@ package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.dao.UserDaoImpl;
@@ -17,22 +17,18 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @PersistenceContext
-    private EntityManager em;
+   // @PersistenceContext
+//    private EntityManager em;
+
+    private final PasswordEncoder passwordEncoder;
 
     private final UserDao userDao;
     @Autowired
-    public UserServiceImpl(UserDaoImpl userDao) {
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserDaoImpl userDao) {
+        this.passwordEncoder = passwordEncoder;
         this.userDao = userDao;
     }
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        return user;
-    }
+
     @Transactional
     @Override
     public List<User> getUsersList() {
@@ -41,6 +37,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void add(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.add(user);
     }
     @Override
@@ -52,6 +49,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(Long id, User updatetUser) {
+        updatetUser.setPassword(passwordEncoder.encode(updatetUser.getPassword()));
+        //updatetUser.setRoles(updatetUser.getRoles());
     userDao.update(id, updatetUser);
     }
 
