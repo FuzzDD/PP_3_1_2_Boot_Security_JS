@@ -1,7 +1,5 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -14,15 +12,8 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao{
 
-
     @PersistenceContext
     private EntityManager entityManager;
-
-    //private PasswordEncoder passwordEncoder;
-
-    /*public UserDaoImpl(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }*/
 
     @Override
     public List<User> getUsersList() {
@@ -45,7 +36,6 @@ public class UserDaoImpl implements UserDao{
     }
     @Override
     public void add(User user) {
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
@@ -57,8 +47,11 @@ public class UserDaoImpl implements UserDao{
         userToUpdate.setEmail(updatetUser.getEmail());
         userToUpdate.setAge(updatetUser.getAge());
         //userToUpdate.setPassword(passwordEncoder.encode(updatetUser.getPassword()));
-        userToUpdate.setPassword(updatetUser.getPassword());
+        if (!userToUpdate.getPassword().equals(updatetUser.getPassword())) {
+            userToUpdate.setPassword(updatetUser.getPassword());
+        }
         userToUpdate.setRoles(updatetUser.getRoles());
+        //entityManager.merge(updatetUser);
     }
     @Override
     public void delete(Long id) {

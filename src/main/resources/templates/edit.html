@@ -22,7 +22,7 @@
   <input type="number" th:field="*{user.age}" id="Age"/>
   <br><br>
   <label for="roles">Role</label>
-  <select th:field="*{roles}" multiple id="roles" name="roles" required = "required">
+  <select th:field="*{user.roles}" multiple id="roles" name="roles" required = "required">
     <option th:each="role : ${roles}"
             th:value="${role.getId()}"
             th:text="${role.getName()}">

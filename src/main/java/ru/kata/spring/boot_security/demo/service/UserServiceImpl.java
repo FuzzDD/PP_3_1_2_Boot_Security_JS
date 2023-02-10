@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void add(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.add(user);
     }
     @Override
@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void update(Long id, User updatetUser) {
         updatetUser.setPassword(passwordEncoder.encode(updatetUser.getPassword()));
-        //updatetUser.setRoles(updatetUser.getRoles());
     userDao.update(id, updatetUser);
     }
 
