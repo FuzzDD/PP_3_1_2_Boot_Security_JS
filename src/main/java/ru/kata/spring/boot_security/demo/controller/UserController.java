@@ -28,38 +28,17 @@ public class UserController {
     }
     @GetMapping
     public String pageForUser (Model model, @AuthenticationPrincipal User userAuth) {
-        //model.addAttribute("getUserByLogin",userService.getUserByLogin(principal.getName()));
         model.addAttribute("users", userService.getUsersList());
         model.addAttribute("roles", roleService.getRoleList());
         model.addAttribute("user", new User());
         model.addAttribute("userAuth", userAuth);
-        //model.addAttribute("roles", roleService.getRoleList());
-        //model.addAttribute("user", userService.show(id));
-        //model.addAttribute("userRole", SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString())
         return "index";
     }
-    /*@GetMapping("admin")
-    public String index(Model model) {
-        model.addAttribute("users", userService.getUsersList());
-        return "admin";
-    }
-    @GetMapping("addUser")
-    public String addUser(Model model*//*, @Valid User user*//*) {
-        model.addAttribute("roles", roleService.getRoleList());
-    model.addAttribute("user", new User());
-    return "new";
-    }*/
    @PostMapping("create")
     public  String create(@ModelAttribute("user") User user) {
     userService.add(user);
     return "redirect:/";
     }
-    /*@GetMapping("edit/{id}")
-    public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("roles", roleService.getRoleList());
-    model.addAttribute("user", userService.show(id));
-    return "edit";
-    }*/
     @PostMapping("edit/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
         userService.update(user.getId(), user);
