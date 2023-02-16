@@ -2,7 +2,6 @@ package ru.kata.spring.boot_security.demo.dao;
 
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -41,16 +40,6 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void update(Long id, User updatetUser) {
-        /*User userToUpdate = show(id);
-        userToUpdate.setFirstName(updatetUser.getFirstName());
-        userToUpdate.setLastName(updatetUser.getLastName());
-        userToUpdate.setEmail(updatetUser.getEmail());
-        userToUpdate.setAge(updatetUser.getAge());
-        //userToUpdate.setPassword(passwordEncoder.encode(updatetUser.getPassword()));
-        if (!userToUpdate.getPassword().equals(updatetUser.getPassword())) {
-            userToUpdate.setPassword(updatetUser.getPassword());
-        }
-        userToUpdate.setRoles(updatetUser.getRoles());*/
         entityManager.merge(updatetUser);
     }
     @Override
