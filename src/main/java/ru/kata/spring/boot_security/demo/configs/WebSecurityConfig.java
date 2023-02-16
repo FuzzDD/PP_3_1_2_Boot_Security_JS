@@ -24,31 +24,31 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final SuccessUserHandler successUserHandler;
+    //private final SuccessUserHandler successUserHandler;
     private final UserDetailServiceImpl userDetailService;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailServiceImpl userDetailService) {
-        this.successUserHandler = successUserHandler;
+    public WebSecurityConfig(/*SuccessUserHandler successUserHandler,*/ UserDetailServiceImpl userDetailService) {
+        //this.successUserHandler = successUserHandler;
         this.userDetailService = userDetailService;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                //.csrf().disable()
                 .authorizeRequests()
                 //.antMatchers("/", "/login").permitAll()
-                .antMatchers("/user").hasRole("USER")
-                .antMatchers("/**").hasRole("ADMIN")
-                .anyRequest().hasAnyRole()
-                //.authenticated()
+                //.antMatchers("/user").hasRole("USER")
+                //.antMatchers("/**").hasRole("ADMIN")
+                .anyRequest()
+                .authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
+                .formLogin()/*.successHandler(successUserHandler)*/
+                //.permitAll()
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login")//выход на главную
+                //.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                //.logoutSuccessUrl("/login")//выход на главную
                 .permitAll();
 
 

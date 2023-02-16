@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -42,6 +43,9 @@ public class User implements UserDetails {
                 .orElse("");
     }
 
+    public Boolean isAdmin() {
+        return roles.stream().map(Role::getNameNotPrefix).anyMatch(x -> x.equals("ADMIN"));
+    }
     public Set<Role> getRoles() {
         return roles;
     }
