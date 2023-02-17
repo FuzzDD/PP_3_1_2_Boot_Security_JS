@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(Long id, User updatetUser) {
+        if (updatetUser.getRoles() == null) {
+            updatetUser.setRoles(userDao.show(id).getRoles());
+        } else {
+            updatetUser.setRoles(updatetUser.getRoles());
+        }
         if (updatetUser.getPassword().equals("")) {
             updatetUser.setPassword(userDao.show(id).getPassword());
         } else {
@@ -55,6 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User getUserByLogin(String username) {
         return userDao.getUserByLogin(username);
     }
