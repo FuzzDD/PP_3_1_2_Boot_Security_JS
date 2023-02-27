@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.dao.UserDaoImpl;
 import ru.kata.spring.boot_security.demo.model.User;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserDao userDao;
+
     @Autowired
     public UserServiceImpl(PasswordEncoder passwordEncoder, UserDaoImpl userDao) {
         this.passwordEncoder = passwordEncoder;
@@ -25,12 +27,14 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsersList() {
         return userDao.getUsersList();
     }
+
     @Transactional
     @Override
     public void add(User user) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.add(user);
     }
+
     @Override
     @Transactional
     public User show(Long id) {
@@ -50,13 +54,13 @@ public class UserServiceImpl implements UserService {
         } else {
             updatetUser.setPassword(passwordEncoder.encode(updatetUser.getPassword()));
         }
-    userDao.update(id, updatetUser);
+        userDao.update(id, updatetUser);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-    userDao.delete(id);
+        userDao.delete(id);
     }
 
     @Override

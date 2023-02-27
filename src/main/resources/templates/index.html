@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +13,10 @@
 <body >
 
 
-<!--Main container-->
+&lt;!&ndash;Main container&ndash;&gt;
 <div class="container-fluid" style="height: 100vh">
 
-    <!--    Row with header - Role and Logout-->
+    &lt;!&ndash;    Row with header - Role and Logout&ndash;&gt;
     <div class="row bg-dark">
         <div class="col text-white">
             <h4>
@@ -35,11 +36,11 @@
             </div>
         </div>
     </div>
-    <div class="row"><br></div> <!--Space row-->
+    <div class="row"><br></div> &lt;!&ndash;Space row&ndash;&gt;
 
-    <!--    Row with left tabs and main content-->
+    &lt;!&ndash;    Row with left tabs and main content&ndash;&gt;
     <div class="row h-100">
-        <!--    Left panel with tabs for roles-->
+        &lt;!&ndash;    Left panel with tabs for roles&ndash;&gt;
         <div class="col-2 bg-white">
             <div class="container">
                 <ul class="nav nav-pills flex-column">
@@ -53,29 +54,29 @@
             </div>
         </div>
 
-        <!--        Column with main content-->
+        &lt;!&ndash;        Column with main content&ndash;&gt;
         <div class="col-10 bg-light">
-            <!--    Container with main content-->
-            <!--    Row with Name Panel-->
+            &lt;!&ndash;    Container with main content&ndash;&gt;
+            &lt;!&ndash;    Row with Name Panel&ndash;&gt;
             <div class="row">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="container-fluid">
                             <div class="tab-content">
 
-                                <!--                        Admin panel-->
+                                &lt;!&ndash;                        Admin panel&ndash;&gt;
                                 <div th:if="${userAuth.isAdmin()}" role="tabpanel" class="tab-pane active"
                                      id="adminPanel">
                                     <h1>Admin Panel</h1>
                                     <br>
-                                    <!--Mapping UserTable/UserNew-->
+                                    &lt;!&ndash;Mapping UserTable/UserNew&ndash;&gt;
                                     <ul class="nav nav-tabs">
-                                        <!--User Table Первая вкладка () -->
+                                        &lt;!&ndash;User Table Первая вкладка () &ndash;&gt;
                                         <li class="nav-item">
                                             <a class="nav-link active" data-toggle="tab" href="#userTable">User
                                                 Table</a>
                                         </li>
-                                        <!-- Вторая вкладка -->
+                                        &lt;!&ndash; Вторая вкладка &ndash;&gt;
                                         <li class="nav-item">
                                             <a class="nav-link" data-toggle="tab" href="#newUser">New User</a>
                                         </li>
@@ -83,13 +84,13 @@
 
                                     <div class="tab-content">
 
-                                        <!--Tab "All users"-->
+                                        &lt;!&ndash;Tab "All users"&ndash;&gt;
                                         <div role="tabpanel" class="tab-pane active" id="userTable">
                                             <div class="card">
                                                 <div class="card-header">All users</div>
                                             </div>
 
-                                            <!--Table all users-->
+                                            &lt;!&ndash;Table all users&ndash;&gt;
                                             <div class="container-fluid bg-white"><hr>
                                                 <table class="table table-striped">
 
@@ -120,7 +121,7 @@
                                                                        data-toggle="modal"
                                                                        th:data-target="${'#editModal'} + ${user.id}"
                                                                        value="Edit"/>
-                                                                <!-- Modal for Edit-->
+                                                                &lt;!&ndash; Modal for Edit&ndash;&gt;
                                                                 <div class="modal fade"
                                                                      th:id="${'editModal'} + ${user.id}" tabindex="-1"
                                                                      role="dialog" aria-labelledby="exampleModalLabel"
@@ -231,14 +232,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!--End Modal for Edit-->
+                                                                &lt;!&ndash;End Modal for Edit&ndash;&gt;
                                                             </td>
                                                             <td>
                                                                 <input type="submit" class="btn btn-danger"
                                                                        data-toggle="modal"
                                                                        th:data-target="${'#deleteModal'} + ${user.id}"
                                                                        value="Delete"/>
-                                                                <!-- Modal for Delete-->
+                                                                &lt;!&ndash; Modal for Delete&ndash;&gt;
                                                                 <div class="modal fade"
                                                                      th:id="${'deleteModal'} + ${user.id}" tabindex="-1"
                                                                      role="dialog" aria-labelledby="exampleModalLabel"
@@ -345,7 +346,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!--End Modal for Delete-->
+                                                                &lt;!&ndash;End Modal for Delete&ndash;&gt;
                                                             </td>
                                                         </tr>
                                                     </div>
@@ -354,12 +355,12 @@
                                             </div>
                                         </div>
 
-                                        <!--Tab "New user"-->
+                                        &lt;!&ndash;Tab "New user"&ndash;&gt;
                                         <div role="tabpanel" class="tab-pane" id="newUser">
                                             <div class="card">
                                                 <div class="card-header">New User</div>
                                             </div>
-                                            <!--Form new user-->
+                                            &lt;!&ndash;Form new user&ndash;&gt;
                                             <div class="container-fluid bg-white">
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <div class="col-5">
@@ -433,7 +434,7 @@
 
                                 </div>
 
-                                <!--                        User Information Panel-->
+                                &lt;!&ndash;                        User Information Panel&ndash;&gt;
                                 <div role="tabpanel" id="userPanel"
                                      th:class="${not userAuth.isAdmin()} ? 'tab-pane active' : 'tab-pane'">
                                     <h1>User Information Page</h1>
@@ -489,4 +490,4 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 </body>
-</html>
+</html>-->
