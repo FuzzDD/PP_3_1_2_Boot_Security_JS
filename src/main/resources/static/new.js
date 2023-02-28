@@ -48,7 +48,7 @@ form.addEventListener('submit', (event) => {
                 return new Role(role.id, role.nameNotPrefix);
             });
             user = new User(data.id, data.firstName, data.lastName, data.age, data.email, roles);
-
+console.log(user)
             //Добавляю новую строку в таблицу с новым юзером
             let trNew = document.createElement("tr");
             trNew.id = `tr-${user.id}`;

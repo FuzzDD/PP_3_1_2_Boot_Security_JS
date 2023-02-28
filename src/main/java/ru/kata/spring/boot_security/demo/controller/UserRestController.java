@@ -38,7 +38,7 @@ public class UserRestController {
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         User user = new User(userDto);
         userService.add(user);
-        return ResponseEntity.ok(new UserDto(user));
+        return ResponseEntity.ok(new UserDto(userService.findByName(user.getEmail())));
     }
 
     @PutMapping//("/users")
