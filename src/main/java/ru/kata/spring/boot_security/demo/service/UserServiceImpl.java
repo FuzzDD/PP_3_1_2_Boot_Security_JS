@@ -3,11 +3,12 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.dao.UserDaoImpl;
 import ru.kata.spring.boot_security.demo.model.User;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 
 @Service
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<User> getUsersList() {
         return userDao.getUsersList();
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User show(Long id) {
         return userDao.show(id);
     }
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(Long id, User updatetUser) {
-        if (updatetUser.getRoles() == null) {
+        if (updatetUser.getRoles().isEmpty()) {
             updatetUser.setRoles(userDao.show(id).getRoles());
         } else {
             updatetUser.setRoles(updatetUser.getRoles());
@@ -64,12 +65,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User getUserByLogin(String username) {
         return userDao.getUserByLogin(username);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findByName(String email) {
         return userDao.findByName(email);
     }

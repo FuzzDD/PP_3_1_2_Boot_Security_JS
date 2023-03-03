@@ -44,7 +44,7 @@ public class UserRestController {
     @PutMapping//("/users")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
         User user = new User(userDto);
-        userService.update(userDto.getId(), user);
+        userService.update(user.getId(), user);
         return ResponseEntity.ok(new UserDto(user));
     }
 

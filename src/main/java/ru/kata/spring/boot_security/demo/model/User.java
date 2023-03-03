@@ -6,6 +6,7 @@ import ru.kata.spring.boot_security.demo.dto.UserDto;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 @Entity
 @Table(name = "users")
@@ -29,11 +30,14 @@ public class User implements UserDetails {
     @Column(name = "age")
     private String age;
 
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable (name="user_role",
             joinColumns=@JoinColumn (name="user_id"),
             inverseJoinColumns=@JoinColumn(name="role_id"))
     private Set<Role> roles;
+    {
+        roles = new HashSet<>();
+    }
 
     public String roleToString() {
         return roles.stream()
